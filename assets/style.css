@@ -1,0 +1,164 @@
+/* JetBrains Mono, Latin subset, all weights in one file (SIL OFL, see fonts/OFL.txt) */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/jetbrains-mono.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --bg: #fdfdfc;
+  --fg: #1f2328;
+  --muted: #5c6370;
+  --accent: #1a7f37;
+  --rule: #e3e3e0;
+  --code: #f2f2ef;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141517;
+    --fg: #e6e6e3;
+    --muted: #9ea4ac;
+    --accent: #3fb950;
+    --rule: #2c2e33;
+    --code: #1f2125;
+  }
+}
+
+* { box-sizing: border-box; }
+html { font: 1.125rem/1.7 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+body {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+a { color: var(--accent); text-underline-offset: .15em; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .5rem 1.5rem;
+  margin-bottom: 3rem;
+}
+.prompt, .posts time, .meta, h1, h2, h3 {
+  font-family: var(--mono);
+}
+.prompt { margin: 0; font-size: 1rem; }
+.site { font-weight: 700; color: var(--accent); text-decoration: none; }
+.path { color: var(--muted); }
+.cursor {
+  display: inline-block;
+  width: .55em;
+  height: 1.1em;
+  margin-left: .2em;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  animation: blink 1.1s steps(1) 3;
+}
+@keyframes blink { 50% { visibility: hidden; } }
+
+/* Homepage: after the first three blinks, an idle terminal that blinks now and then.
+   One 61s cycle with uneven gaps (about 12s, 20s, 22s, 20s) so it never feels mechanical. */
+.home .cursor { animation: blink 1.1s steps(1) 3, idle 61s steps(1) 3.3s infinite; }
+@keyframes idle {
+  0%     { visibility: visible; }
+  20%    { visibility: hidden; } 20.4% { visibility: visible; } 20.7% { visibility: hidden; } 21.1% { visibility: visible; }
+  52%    { visibility: hidden; } 52.4% { visibility: visible; }
+  88%    { visibility: hidden; } 88.4% { visibility: visible; } 88.7% { visibility: hidden; } 89.1% { visibility: visible; }
+}
+
+/* Every page: hovering the prompt wakes the terminal up */
+.prompt:hover .cursor { animation: blink 1.1s steps(1) infinite; }
+
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none !important; } }
+
+/* Headings read like Markdown source: # title, ## section */
+h1, h2, h3 { line-height: 1.3; font-weight: 600; }
+h1 { font-size: 1.3rem; margin: 0 0 .35rem; }
+h2 { font-size: 1.1rem; margin: 2.75rem 0 .75rem; }
+h3 { font-size: 1rem; margin: 2rem 0 .5rem; }
+
+/* Even vertical rhythm for post body */
+p, ul, ol, pre, blockquote { margin: 0 0 1.25rem; }
+li + li { margin-top: .35rem; }
+/* The `/ ""` part tells screen readers the symbol is decoration; older browsers use the first line */
+h1::before, h2::before, h3::before { color: var(--muted); font-weight: 400; }
+h1::before { content: "# "; content: "# " / ""; }
+h2::before { content: "## "; content: "## " / ""; }
+h3::before { content: "### "; content: "### " / ""; }
+
+/* A heading that reads as a command: $ ls posts */
+.cmd { font-size: .95rem; font-weight: 400; margin: 2rem 0 .5rem; }
+.cmd::before { content: "$ "; content: "$ " / ""; }
+
+/* Visible to screen readers and search engines only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.meta, .posts time { color: var(--muted); font-size: .85rem; }
+.meta { margin-bottom: 2.25rem; }
+
+/* "updated" works like "edited" in a chat app: hover or tap to see when and what changed */
+.updated { cursor: help; text-decoration: underline dotted; text-underline-offset: .2em; }
+.updated:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.updated:not(:hover, :focus) .when {
+  /* Hidden on screen but still read by screen readers and search engines */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.updated:is(:hover, :focus) { text-decoration: none; color: var(--fg); }
+.posts { list-style: none; padding: 0; margin: 0; }
+.posts li {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 0 1rem;
+  align-items: baseline;
+  padding: .3rem 0;
+}
+.posts time { font-variant-numeric: tabular-nums; }
+
+/* JetBrains Mono runs large, so inline code sits a step smaller than body text */
+code, pre { font-family: var(--mono); font-size: .85em; background: var(--code); }
+code {
+  padding: .15em .4em;
+  border-radius: 4px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+pre { padding: 1rem 1.25rem; overflow-x: auto; border-radius: 6px; line-height: 1.6; }
+pre code { padding: 0; background: none; }
+
+blockquote { margin: 0; padding-left: 1rem; border-left: 3px solid var(--rule); color: var(--muted); }
+img { max-width: 100%; height: auto; }
+hr { border: 0; border-top: 1px solid var(--rule); }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: .9rem;
+}
+footer p { margin: .25rem 0; }
+
+/* Footnote written as a shell comment */
+.note { margin-top: .75rem; padding-left: 2ch; text-indent: -2ch; font-family: var(--mono); font-size: .8rem; line-height: 1.6; }
+.note::before { content: "# "; content: "# " / ""; }

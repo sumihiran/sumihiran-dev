@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<article>
+  <h1>{{ page.title }}</h1>
+  <p class="meta">
+    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%a %d %b %Y" }}</time>
+    {%- if page.last_modified_at %} ·
+    <span class="updated" tabindex="0">updated<span class="when"> <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%a %d %b %Y" }}</time>{% if page.update_note %}: {{ page.update_note }}{% endif %}</span></span>
+    {%- endif %}
+  </p>
+  {{ content }}
+</article>
+<p><a href="{{ '/' | relative_url }}">← All posts</a></p>

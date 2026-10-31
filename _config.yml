@@ -1,0 +1,50 @@
+title: sumihiran
+# Left empty on purpose: the tab title is just "sumihiran", and GitHub won't fill in a description.
+description: ""
+lang: en
+url: https://sumihiran.dev
+baseurl: ""
+author:
+  name: Sumihiran
+
+# Shown in the header as a shell prompt: $umihiran /dev/post-slug
+brand: $umihiran
+
+# Posts live at /dev/<slug>/, e.g. /dev/influence-without-authority/
+permalink: /dev/:title/
+
+links:
+  - title: GitHub
+    url: https://github.com/sumihiran
+  - title: LinkedIn
+    url: https://www.linkedin.com/in/sumihiran/
+
+# Link-preview image for LinkedIn and others. Crawlers fetch it; visitors never download it.
+# A post can set its own `image:` to override.
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/og.png
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# One RSS feed per area: /feed/leadership.xml etc.
+feed:
+  categories:
+    - leadership
+    - engineering
+    - innovation
+
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+# No theme: layouts and CSS live in this repo.
+theme: null

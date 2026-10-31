@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "jekyll",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["run", "--rm", "-p", "4000:4000", "-v", "/Users/sumihiran/Projects/sumihiran-dev:/srv", "-v", "sumihiran-gems:/usr/local/bundle", "-w", "/srv", "ruby:3.3", "bundle", "exec", "jekyll", "serve", "--drafts", "--host", "0.0.0.0", "--force_polling"],
+      "port": 4000
+    }
+  ]
+}
